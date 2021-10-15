@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BookmarkIcon,
   ChatIcon,
@@ -14,14 +14,17 @@ import {
   collection,
   deleteDoc,
   doc,
+  DocumentData,
   onSnapshot,
   orderBy,
   query,
+  QueryDocumentSnapshot,
   serverTimestamp,
   setDoc,
 } from "@firebase/firestore";
 import { db } from "../Firebase/firebase";
 import Moment from "react-moment";
+import { UserSession } from "../types/types";
 
 interface Props {
   id: string;
@@ -32,19 +35,21 @@ interface Props {
 }
 
 const Post: React.FC<Props> = ({ id, username, img, caption, userImage }) => {
-  const { data: session }: any = useSession();
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState<any>([]);
-  const [likes, setLikes] = useState<any>([]);
+  const { data: session }: UserSession = useSession();
+  const [comment, setComment] = useState<string>("");
+  const [comments, setComments] = useState<
+    [] | QueryDocumentSnapshot<DocumentData>[]
+  >([]);
+  const [likes, setLikes] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
   const [hasLiked, setHasLiked] = useState<boolean>(false);
 
-  useEffect(
-    () =>
+  useEffect(() => {
+    if (session) {
       setHasLiked(
-        likes.findIndex((like: any) => like.id === session?.user?.uid) !== -1
-      ),
-    [likes, session]
-  );
+        likes.findIndex((like) => like.id === session.user.uid) !== -1
+      );
+    }
+  }, [likes, session]);
 
   useEffect(
     () =>
@@ -56,7 +61,7 @@ const Post: React.FC<Props> = ({ id, username, img, caption, userImage }) => {
         (snapshot) => setComments(snapshot.docs)
       ),
 
-    [db, id]
+    [id, db]
   );
   useEffect(
     () =>
@@ -64,29 +69,35 @@ const Post: React.FC<Props> = ({ id, username, img, caption, userImage }) => {
         setLikes(snapshot.docs)
       ),
 
-    [db, id]
+    [id, db]
   );
 
-  const sendComment = async (e: any) => {
-    e.preventDefault();
-    const commentToSend = comment;
-    setComment("");
+  const sendComment = async (
+    event: React.FormEvent<HTMLFormElement | HTMLButtonElement>
+  ) => {
+    if (session) {
+      event.preventDefault();
+      const commentToSend: string = comment;
+      setComment("");
 
-    await addDoc(collection(db, "posts", id, "comments"), {
-      comment: commentToSend,
-      username: session.user.username,
-      userImage: session.user.image,
-      timestamp: serverTimestamp(),
-    });
+      await addDoc(collection(db, "posts", id, "comments"), {
+        comment: commentToSend,
+        username: session.user.username,
+        userImage: session.user.image,
+        timestamp: serverTimestamp(),
+      });
+    }
   };
 
   const likePost = async () => {
-    if (hasLiked) {
-      await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
-    } else {
-      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
-        username: session.user.username,
-      });
+    if (session) {
+      if (hasLiked) {
+        await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
+      } else {
+        await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
+          username: session.user.username,
+        });
+      }
     }
   };
   return (
@@ -127,7 +138,7 @@ const Post: React.FC<Props> = ({ id, username, img, caption, userImage }) => {
       {/* Caption */}
       <p className="p-5 truncate">
         {likes.length > 0 && (
-          <p className="font-bold mb-1">{likes.length} likes</p>
+          <span className="font-bold mb-1 block">{likes.length} likes</span>
         )}
         <span className="font-bold mr-1">{username}</span>
         {caption}

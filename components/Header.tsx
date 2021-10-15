@@ -3,21 +3,20 @@ import Image from "next/image";
 import {
   SearchIcon,
   PlusCircleIcon,
-  UserGroupIcon,
   HeartIcon,
   PaperAirplaneIcon,
-  MenuIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
+import { UserSession } from "../types/types";
 
 const Header: React.FC = () => {
-  const { data: session }: any = useSession();
-  const [open, setOpen] = useRecoilState(modalState);
-  const router = useRouter();
+  const { data: session }: UserSession = useSession();
+  const [_, setOpen] = useRecoilState(modalState);
+  const router: NextRouter = useRouter();
   return (
     <div className="shadow-sm  border-b bg-white fixed top-0 w-full z-20">
       <div className="flex justify-between max-w-5xl mx-5 lg:mx-auto h-[53px]">

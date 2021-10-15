@@ -13,13 +13,10 @@ export interface User {
   name: string;
   address?: string;
 }
-export interface Data {
-  expires: string;
-  user: User;
-}
+
 export interface UserSession {
   status: string;
-  data: Session;
+  data: Session | null;
 }
 
 export interface Post {
@@ -28,4 +25,11 @@ export interface Post {
   profileImg: string;
   timestamp: string;
   username: string;
+}
+
+export interface Comment {
+  comment: string;
+  username: string;
+  userImage: string;
+  timestamp: string;
 }

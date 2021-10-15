@@ -11,21 +11,23 @@ import {
   doc,
 } from "firebase/firestore";
 import { ref, getDownloadURL, uploadString } from "firebase/storage";
-import { app, db, storage } from "../Firebase/firebase";
+import { db, storage } from "../Firebase/firebase";
 import { useSession } from "next-auth/react";
+import { UserSession } from "../types/types";
 
 const Modal: React.FC = () => {
-  const { data: session }: any = useSession();
+  const { data: session }: UserSession = useSession();
   const [open, setOpen] = useRecoilState(modalState);
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const filePickerRef = useRef<any>(null);
-  const captionRef = useRef<any>(null);
+  const filePickerRef = useRef<HTMLInputElement>(null);
+  const captionRef = useRef<HTMLInputElement>(null);
 
-  const addImageToPost = (e: any) => {
-    const reader = new FileReader();
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
+  const addImageToPost = (event: any): void => {
+    const reader: FileReader = new FileReader();
+
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
     }
 
     reader.onload = (readerEvent: any) => {
@@ -36,15 +38,15 @@ const Modal: React.FC = () => {
   const uploadPost = async () => {
     if (loading) return;
     setLoading(true);
-    // Create a post and add it to Firestore
-    // Get the post ID from Firestore
-    // upload the image to firestore storage with the post ID
-    // get a dl link for the image and update the UI
+    // 1- Create a post and add it to Firestore
+    // 2- Get the post ID from Firestore
+    // 3- upload the image to firestore storage with the post ID
+    // 4- get a dl link for the image and update the UI
 
     const docRef = await addDoc(collection(db, "posts"), {
-      username: session.user.username,
-      caption: captionRef.current.value,
-      profileImg: session.user.image,
+      username: session?.user.username,
+      caption: captionRef.current?.value,
+      profileImg: session?.user.image,
       timestamp: serverTimestamp(),
     });
     console.log("New doc added wid id: ", docRef.id);
@@ -110,7 +112,7 @@ const Modal: React.FC = () => {
                   />
                 ) : (
                   <div
-                    onClick={() => filePickerRef.current.click()}
+                    onClick={() => filePickerRef.current?.click()}
                     className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 cursor-pointer"
                   >
                     <CameraIcon

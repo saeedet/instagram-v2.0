@@ -20,7 +20,7 @@ export default NextAuth({
     signIn: "/auth/signin",
   },
   callbacks: {
-    async session({ session, token, user }: any): Promise<any> {
+    async session({ session, token, user }: any) {
       session.user.username = session.user.name
         .split(" ")
         .join("")

@@ -1,10 +1,17 @@
-import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
+import {
+  collection,
+  DocumentData,
+  onSnapshot,
+  orderBy,
+  query,
+  QueryDocumentSnapshot,
+} from "@firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../Firebase/firebase";
 import Post from "./Post";
 
 const Posts: React.FC = () => {
-  const [posts, setPosts] = useState<any>();
+  const [posts, setPosts] = useState<QueryDocumentSnapshot<DocumentData>[]>();
   useEffect(
     () =>
       onSnapshot(
@@ -15,10 +22,10 @@ const Posts: React.FC = () => {
       ),
     [db]
   );
-  // console.log(posts[0].id);
+
   return (
     <div>
-      {posts?.map((post: any) => (
+      {posts?.map((post) => (
         <Post
           key={post.id}
           id={post.id}

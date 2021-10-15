@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Story from "./Story";
 import faker from "faker";
-import { Member } from "../types/types";
+import { Member, UserSession } from "../types/types";
 import { useSession } from "next-auth/react";
 
 const Stories: React.FC = () => {
-  const { data: session }: any = useSession();
-  const [suggestions, setSuggestions] = useState<[] | Member[]>([]);
+  const { data: session }: UserSession = useSession();
+  const [suggestions, setSuggestions] = useState<Member[]>([]);
   useEffect(() => {
     const suggestions: Member[] = [...Array(20)].map((_, index) => ({
       ...faker.helpers.contextualCard(),

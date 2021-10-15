@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import faker from "faker";
 import { Member } from "../types/types";
 const Suggestions: React.FC = () => {
-  const [suggestions, setSuggestions] = useState<[] | Member[]>([]);
+  const [suggestions, setSuggestions] = useState<Member[]>([]);
 
   useEffect(() => {
     const suggestions: Member[] = [...Array(5)].map((_, index) => ({
