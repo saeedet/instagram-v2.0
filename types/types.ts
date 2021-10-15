@@ -21,3 +21,11 @@ export interface UserSession {
   status: string;
   data: Session;
 }
+
+export interface Post {
+  caption: string;
+  image: string;
+  profileImg: string;
+  timestamp: string;
+  username: string;
+}
