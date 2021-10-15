@@ -118,7 +118,7 @@ const Post: React.FC<Props> = ({ id, username, img, caption, userImage }) => {
             )}
 
             <ChatIcon className="btn" />
-            <PaperAirplaneIcon className="btn" />
+            <PaperAirplaneIcon className="btn rotate-[62deg] mt-[-2px]" />
           </div>
           <BookmarkIcon className="btn" />
         </div>
@@ -157,7 +157,7 @@ const Post: React.FC<Props> = ({ id, username, img, caption, userImage }) => {
       {/* Input box */}
       {session && (
         <form className="flex items-center p-4" onSubmit={sendComment}>
-          <EmojiHappyIcon className="h-7" />
+          <EmojiHappyIcon className="h-7 cursor-pointer" />
           <input
             value={comment}
             onChange={(e) => setComment(e.target.value)}
@@ -169,7 +169,7 @@ const Post: React.FC<Props> = ({ id, username, img, caption, userImage }) => {
             onClick={sendComment}
             type="submit"
             disabled={!comment.trim()}
-            className="font-semibold text-blue-400"
+            className="font-semibold text-blue-400 disabled:cursor-default"
           >
             Post
           </button>

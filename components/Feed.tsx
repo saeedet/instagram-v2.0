@@ -9,7 +9,7 @@ const Feed: React.FC = () => {
   const { data: session }: any = useSession();
   return (
     <div
-      className={`flex flex-col md:flex-row md:max-w-3xl xl:max-w-6xl  mx-auto ${
+      className={`flex flex-col md:flex-row md:max-w-3xl xl:max-w-5xl mt-[53px]  mx-auto ${
         !session && "justify-center"
       }`}
     >

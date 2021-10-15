@@ -13,15 +13,14 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
-// import { UserSession } from "../types/types";
 
 const Header: React.FC = () => {
   const { data: session }: any = useSession();
   const [open, setOpen] = useRecoilState(modalState);
   const router = useRouter();
   return (
-    <div className="shadow-sm bg-white">
-      <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
+    <div className="shadow-sm  border-b bg-white fixed top-0 w-full z-20">
+      <div className="flex justify-between max-w-5xl mx-5 lg:mx-auto h-[53px]">
         {/* Left */}
         <div
           className="w-24 relative cursor-pointer"
@@ -34,7 +33,7 @@ const Header: React.FC = () => {
             objectFit="contain"
           />
         </div>
-        <div className=" relative p-3 rounded-md ">
+        <div className=" relative p-3 rounded-md hidden sm:inline-block ">
           <div className=" absolute inset-y-0 pl-3 flex items-center pointer-events-none">
             <SearchIcon className="h-5 w-5 text-gray-500" />
           </div>
@@ -46,14 +45,13 @@ const Header: React.FC = () => {
         </div>
         {/* Right section */}
 
-        <div className="flex justify-end items-center space-x-4">
+        <div className="flex justify-end items-center space-x-2 md:space-x-4">
           <HomeIcon className="navBtn" onClick={() => router.push("/")} />
-          <MenuIcon className="h-6 md:hidden cursor-pointer" />
           {session ? (
             <>
               <div className="relative nvBtn">
                 <PaperAirplaneIcon className="navBtn rotate-45" />
-                <div className="absolute hidden md:flex -top-1 -right-2 text-xs w-5 h-5 bg-red-500  items-center justify-center animate-pulse rounded-full text-white">
+                <div className="absolute hidden md:flex top-0 -right-1 text-xs w-4 h-4 bg-red-500  items-center justify-center rounded-full text-white">
                   3
                 </div>
               </div>
@@ -61,10 +59,9 @@ const Header: React.FC = () => {
                 className="navBtn"
                 onClick={() => setOpen(true)}
               />
-              <UserGroupIcon className="navBtn" />
               <HeartIcon className="navBtn" />
               <img
-                className="h-10 rounded-full cursor-pointer"
+                className="h-6 rounded-full cursor-pointer transform transition-all duration-100 active:scale-90"
                 src={session?.user.image}
                 alt="profile"
                 onClick={() => signOut()}

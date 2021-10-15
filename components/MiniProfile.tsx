@@ -9,11 +9,11 @@ const MiniProfile: React.FC = () => {
       <img
         src={session?.user?.image}
         alt=""
-        className="rounded-full w-16 h-16 border p-[2px]"
+        className="rounded-full w-16 h-16 border p-[2px] cursor-pointer"
       />
 
       <div>
-        <h2 className="font-bold">{session?.user?.name}</h2>
+        <h2 className="font-bold cursor-pointer">{session?.user?.name}</h2>
         <h3 className="text-sm text-gray-400">Welcome to instagram</h3>
       </div>
 

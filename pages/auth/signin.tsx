@@ -7,7 +7,7 @@ const signIn: React.FC<any> = ({ providers }) => {
   return (
     <>
       <Header />
-      <div className="flex flex-col  justify-center items-center min-h-screen py-2 -mt-56 px-14 text-center ">
+      <div className="flex flex-col  justify-center items-center min-h-screen py-2  px-14 text-center  ">
         <div className="w-10 h-10 relative">
           <Image
             alt="instagram-logo"
