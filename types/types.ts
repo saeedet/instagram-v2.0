@@ -11,7 +11,8 @@ export interface Member {
 export interface User {
   image: string;
   name: string;
-  address?: string;
+  uid: string;
+  username: string;
 }
 
 export interface UserSession {

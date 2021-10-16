@@ -14,9 +14,10 @@ import { modalState } from "../atoms/modalAtom";
 import { UserSession } from "../types/types";
 
 const Header: React.FC = () => {
-  const { data: session }: UserSession = useSession();
+  const { data: session }: any = useSession();
   const [_, setOpen] = useRecoilState(modalState);
   const router: NextRouter = useRouter();
+
   return (
     <div className="shadow-sm  border-b bg-white fixed top-0 w-full z-20">
       <div className="flex justify-between max-w-5xl mx-5 lg:mx-auto h-[53px]">

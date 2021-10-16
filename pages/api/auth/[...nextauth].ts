@@ -10,17 +10,11 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
-  // default login
-  //   theme: {
-  //       logo: "//url",
-  //       brandColor: "#sfsdf",
-  //       colorScheme: "auto"
-  //   }
   pages: {
     signIn: "/auth/signin",
   },
   callbacks: {
-    async session({ session, token, user }: any) {
+    async session({ session, token }: any) {
       session.user.username = session.user.name
         .split(" ")
         .join("")
