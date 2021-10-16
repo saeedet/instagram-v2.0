@@ -2,7 +2,7 @@ import { signOut, useSession } from "next-auth/react";
 import React from "react";
 
 const MiniProfile: React.FC = () => {
-  const { data: session } = useSession<boolean>();
+  const { data: session }: any = useSession<boolean>();
 
   return (
     <div className="flex items-center justify-between mt-14 ml-10">

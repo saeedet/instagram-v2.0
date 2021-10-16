@@ -15,7 +15,7 @@ import { db, storage } from "../Firebase/firebase";
 import { useSession } from "next-auth/react";
 
 const Modal: React.FC = () => {
-  const { data: session } = useSession<boolean>();
+  const { data: session }: any = useSession<boolean>();
   const [open, setOpen] = useRecoilState<boolean>(modalState);
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);

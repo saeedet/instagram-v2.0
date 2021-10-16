@@ -5,7 +5,7 @@ import { Member, UserSession } from "../types/types";
 import { useSession } from "next-auth/react";
 
 const Stories: React.FC = () => {
-  const { data: session } = useSession<boolean>();
+  const { data: session }: any = useSession<boolean>();
   const [suggestions, setSuggestions] = useState<Member[]>([]);
   useEffect(() => {
     const suggestions: Member[] = [...Array(20)].map((_, index) => ({

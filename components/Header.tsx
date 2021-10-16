@@ -13,7 +13,7 @@ import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
 
 const Header: React.FC = () => {
-  const { data: session } = useSession<boolean>();
+  const { data: session }: any = useSession<boolean>();
   const [_, setOpen] = useRecoilState(modalState);
   const router: NextRouter = useRouter();
 

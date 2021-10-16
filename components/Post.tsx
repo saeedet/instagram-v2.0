@@ -34,7 +34,7 @@ interface Props {
 }
 
 const Post: React.FC<Props> = ({ id, username, img, caption, userImage }) => {
-  const { data: session } = useSession<boolean>();
+  const { data: session }: any = useSession<boolean>();
   const [comment, setComment] = useState<string>("");
   const [comments, setComments] = useState<
     [] | QueryDocumentSnapshot<DocumentData>[]
