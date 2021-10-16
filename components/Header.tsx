@@ -11,10 +11,9 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { modalState } from "../atoms/modalAtom";
-import { UserSession } from "../types/types";
 
 const Header: React.FC = () => {
-  const { data: session }: any = useSession();
+  const { data: session } = useSession<boolean>();
   const [_, setOpen] = useRecoilState(modalState);
   const router: NextRouter = useRouter();
 

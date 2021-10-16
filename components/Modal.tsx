@@ -13,26 +13,25 @@ import {
 import { ref, getDownloadURL, uploadString } from "firebase/storage";
 import { db, storage } from "../Firebase/firebase";
 import { useSession } from "next-auth/react";
-import { UserSession } from "../types/types";
 
 const Modal: React.FC = () => {
-  const { data: session }: UserSession = useSession();
-  const [open, setOpen] = useRecoilState(modalState);
+  const { data: session } = useSession<boolean>();
+  const [open, setOpen] = useRecoilState<boolean>(modalState);
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const filePickerRef = useRef<HTMLInputElement>(null);
   const captionRef = useRef<HTMLInputElement>(null);
 
-  const addImageToPost = (event: any): void => {
-    const reader: FileReader = new FileReader();
-
-    if (event.target.files[0]) {
+  const addImageToPost = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.files) {
+      const reader: FileReader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (readerEvent: ProgressEvent<FileReader>): void => {
+        if (readerEvent.target) {
+          setSelectedFile(readerEvent.target.result);
+        }
+      };
     }
-
-    reader.onload = (readerEvent: any) => {
-      setSelectedFile(readerEvent.target.result);
-    };
   };
 
   const uploadPost = async () => {

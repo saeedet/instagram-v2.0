@@ -1,9 +1,8 @@
 import { signOut, useSession } from "next-auth/react";
 import React from "react";
-import { UserSession } from "../types/types";
 
 const MiniProfile: React.FC = () => {
-  const { data: session }: UserSession = useSession();
+  const { data: session } = useSession<boolean>();
 
   return (
     <div className="flex items-center justify-between mt-14 ml-10">

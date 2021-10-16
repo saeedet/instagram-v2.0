@@ -24,7 +24,6 @@ import {
 } from "@firebase/firestore";
 import { db } from "../Firebase/firebase";
 import Moment from "react-moment";
-import { UserSession } from "../types/types";
 
 interface Props {
   id: string;
@@ -35,7 +34,7 @@ interface Props {
 }
 
 const Post: React.FC<Props> = ({ id, username, img, caption, userImage }) => {
-  const { data: session }: UserSession = useSession();
+  const { data: session } = useSession<boolean>();
   const [comment, setComment] = useState<string>("");
   const [comments, setComments] = useState<
     [] | QueryDocumentSnapshot<DocumentData>[]

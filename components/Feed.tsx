@@ -1,13 +1,12 @@
 import { useSession } from "next-auth/react";
 import React from "react";
-import { UserSession } from "../types/types";
 import MiniProfile from "./MiniProfile";
 import Posts from "./Posts";
 import Stories from "./Stories";
 import Suggestions from "./Suggestions";
 
 const Feed: React.FC = () => {
-  const { data: session }: UserSession = useSession();
+  const { data: session } = useSession<boolean>();
   return (
     <div
       className={`flex flex-col md:flex-row md:max-w-3xl xl:max-w-5xl mt-[53px]  mx-auto ${
