@@ -20,7 +20,7 @@ const Posts: React.FC = () => {
           setPosts(snapshot.docs);
         }
       ),
-    [db]
+    []
   );
 
   return (
